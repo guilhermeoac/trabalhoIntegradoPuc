@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand cursor_pointer" id="logoButton">LocacaoVeiculoWeb</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav">
+                        <li id="loginLi" class="nav-item">
+                            <a class="nav-link text-blue cursor_pointer font_weight" id="buttonAbrirLogin" data-toggle="modal" data-target="#loginModal">Login</a>
+                        </li>
+                        <li id="clienteNomeLi" class="nav-item display_none">
+                            <a class="nav-link text-blue" id="clienteNometext"></a>
+                        </li>
+                        <li id="logoutLi" class="nav-item display_none">
+                            <a class="nav-link text-red cursor_pointer font_weight">Logout</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark cursor_pointer" id="inicioButton">Início</a>
+                        </li>
+                        <li id="locacaoLi" class="nav-item display_none">
+                            <a class="nav-link text-dark cursor_pointer">Locação</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Logout</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Deseja realmente sair?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                            <button type="button" class="btn btn-primary" id="logoutConfirmButton">Sim</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade bd-example-modal-lg" id="detalheVeiculoModal" tabindex="-1" role="dialog" aria-labelledby="detalheVeiculoModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Resumo Locação</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h2 class="text-center margin_bottom" id="veiculoTitulo"></h2>
+                            <div class="form-row">
+                                <div class="form-group col-md-8 paddin_left">
+                                    <label class="font_weight">Placa:</label>
+                                    <span id="placaSpan"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="font_weight">Ano:</label>
+                                    <span id="anoSpan"></span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-8 paddin_left">
+                                    <label class="font_weight">Combustível:</label>
+                                    <span id="combustivelSpan"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="font_weight">Valor Hora:</label>
+                                    <span id="valorHoraSpan"></span>
+                                </div>
+                            </div>
+                            <div class="form-row margin_bottom">
+                                <div class="form-group col-md-8 paddin_left">
+                                    <label class="font_weight">Data Inicio:</label>
+                                    <span id="dataInicoSpan"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="font_weight">Data Fim:</label>
+                                    <span id="dataFimSpan"></span>
+                                </div>
+                            </div>
+                            <div class="form-row text-center">
+                                <div class="form-group col-md-6">
+                                    <h4 class="text-center">Total Horas</h4>
+                                    <h2 class="text-center margin_bottom" id="totalHorasTitulo"></h2>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <h4 class="text-center">Valor Total</h4>
+                                    <h2 class="text-center margin_bottom" id="valorTotalTitulo"></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="buttonConfirmarLocacao">Confirmar Locação</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="confirmarSenhaModal" tabindex="-1" role="dialog" aria-labelledby="confirmarSenhaModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmar Identidade</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <h2 class="text-center" id="clienteNomeLabel"></h2><br />
+                                <input type="password" class="form-control" id="confirmarIdentidadeSenha" placeholder="Sua Senha">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="buttonConfirmarIdentidade">Confirmar Identidade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="loginLabel">CPF</label>
+                                <input type="text" class="form-control" id="login_cpf" placeholder="Digite seu CPF" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14">
+                            </div>
+                            <div class="form-group">
+                                <label for="loginLabel">Senha</label>
+                                <input type="password" class="form-control" id="login_senha" placeholder="Digite sua senha" maxlength="8">
+                            </div>
+                            <div class="text-center">
+                                <p class="no_margin_bottom">Novo por aqui?</p>
+                                <a class="cursor_pointer font_weight" data-toggle="modal" data-target="#cadastroModal">Cadastrar</a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="buttonLogin" class="btn btn-primary">Entrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="loginLabel">Nome*</label>
+                                <input type="text" class="form-control" id="cadastro_nome" placeholder="Digite seu nome" maxlength="64">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">CPF*</label>
+                                    <input type="email" class="form-control" id="cadastro_cpf" placeholder="Digite seu CPF" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Data Nascimento*</label>
+                                    <input type="date" class="form-control" id="cadastro_data_nascimento">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-blue font_weight">Endereço</p>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">CEP*</label>
+                                    <input type="text" class="form-control" id="cadastro_cep" placeholder="Digite seu cep" maxlength="8">
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label for="inputPassword4">Rua*</label>
+                                    <input type="text" class="form-control" id="cadastro_rua" placeholder="Digite sua rua" maxlength="64">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Número*</label>
+                                    <input type="text" class="form-control" id="cadastro_numero" placeholder="Digite seu número" maxlength="4">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Complemento</label>
+                                    <input type="text" class="form-control" id="cadastro_complemento" placeholder="Digite o complemento" maxlength="32">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Cidade*</label>
+                                    <input type="text" class="form-control" id="cadastro_cidade" placeholder="Digite sua cidade" maxlength="64">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Estado*</label>
+                                    <input type="text" class="form-control" id="cadastro_estado" placeholder="Digite seu estado" maxlength="2" style="text-transform:uppercase;">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-blue font_weight">Autenticação</p>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Senha*</label>
+                                    <input type="password" class="form-control" id="cadastro_senha" placeholder="Digite sua senha" maxlength="8">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Confirmar Senha*</label>
+                                    <input type="password" class="form-control" id="cadastro_confirmar_senha" placeholder="Confirme sua senha" maxlength="8">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="cadastroClienteButton">Cadastrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            Copyright &copy; 2021 - All rights reserved - LocacaoVeiculoWeb <a id="privacidadeButton" class="float-right cursor_pointer">Privacidade</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

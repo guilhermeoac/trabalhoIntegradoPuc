@@ -1,0 +1,154 @@
+﻿@{
+    ViewData["Title"] = "LocacaoVeiculoWeb";
+}
+
+    <div class="text-center" id="conteudoInicial">
+        <h1 class="display-4">Categorias</h1>
+        <p>Selecione a categoria para visualizar os veículos disponíveis.</p>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="/img/onix.png">
+                    <div class="caption">
+                        <h3>Básico</h3>
+                        <p>Carros compactos e versáteis excelentes para o dia a dia.</p>
+                        <p><a categoriaId="1" categoriaString="Básico" href="#conteudoReserva" class="btn btn-primary text-white buttonCategoriaSelecioda cursor_pointer" role="button">Selecionar</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="/img/fordfusion.jpg">
+                    <div class="caption">
+                        <h3>Completo</h3>
+                        <p>Carros premium que combinam com seu estilo e seu bolso. </p>
+                        <p><a categoriaId="2" categoriaString="Completo"  href="#conteudoReserva" class="btn btn-primary text-white buttonCategoriaSelecioda cursor_pointer" role="button">Selecionar</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="/img/porshe.jpg">
+                    <div class="caption">
+                        <h3>Luxo</h3>
+                        <p>Carros que te completam e elevam a patamares inimagináveis.</p>
+                        <p><a categoriaId="3" categoriaString="Luxo" href="#conteudoReserva" class="btn btn-primary text-white buttonCategoriaSelecioda cursor_pointer" role="button">Selecionar</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center display_none" id="conteudoReserva">
+        <h1 class="display-4">Reserva</h1>
+        <h3 class="text-blue font_weight" id="tituloCategoria"></h3>
+        <p>Selecione o período para verificar a disponibilidade dos veículos.</p>
+
+        <div class="row">
+            <div class="col-md-5 mb-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Início</span>
+                    </div>
+                    <input type="datetime-local" class="form-control" id="reservaDataInicio" required>
+                </div>
+            </div>
+            <div class="col-md-5 mb-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Fim</span>
+                    </div>
+                    <input type="datetime-local" id="reservaDataFim" class="form-control" required>
+                </div>
+            </div>
+            <div class="col-md-2 mb-2">
+                <a class="btn btn-primary text-white cursor_pointer" id="buttonBuscarReserva" role="button">Buscar</a>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top:25px;">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Placa</th>
+                        <th scope="col">Ano</th>
+                        <th scope="col">Combustivel</th>
+                        <th scope="col">Valor Hora</th>
+                        <th scope="col">Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="reservaTbody">
+                    <tr>
+                        <td colspan="8">Nenhum veículo encontrado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="text-center display_none" id="conteudoLocacao">
+        <h1 class="display-4">Locação</h1>
+        <p>Selecione o período para verificar as reservas realizadas.</p>
+
+        <div class="row">
+            <div class="col-md-5 mb-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Início</span>
+                    </div>
+                    <input type="date" class="form-control" id="locacaoDataInicio" required>
+                </div>
+            </div>
+            <div class="col-md-5 mb-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Fim</span>
+                    </div>
+                    <input type="date" class="form-control" id="locacaoDataFim" required>
+                </div>
+            </div>
+            <div class="col-md-2 mb-2">
+                <a class="btn btn-primary text-white cursor_pointer" id="buttonBuscarLocacao" role="button">Buscar</a>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top:25px;">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Placa</th>
+                        <th scope="col">Ano</th>
+                        <th scope="col">Combustivel</th>
+                        <th scope="col">Data Loc. Ini.</th>
+                        <th scope="col">Data Loc. Fim</th>
+                        <th scope="col">Valor Hora</th>
+                        <th scope="col">Total Hora</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="locacaoTbody">
+                    <tr>
+                        <td colspan="11">Nenhuma locação encontrada</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="text-center display_none" id="conteudoPrivacidade">
+        <h1 class="display-4">Privacidade</h1>
+        <p>Fique tranquilo(a)!</p>
+        <p>Os dados trafegados neste site serão armazenados por um curto período de tempo e serão utilizados apenas para avaliação de conhecimento para a obtenção do título de Especialista em Arquitetura de Software Distribuído pela Pontifícia Universidade Católica de Minas Gerais.</p>
+    </div>
